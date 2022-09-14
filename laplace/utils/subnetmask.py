@@ -3,8 +3,9 @@ from copy import deepcopy
 import torch
 from torch.nn import CrossEntropyLoss, MSELoss
 from torch.nn.utils import parameters_to_vector
-
-from laplace.utils import FeatureExtractor, fit_diagonal_swag_var
+import sys
+sys.path.append('/home/amand/')
+from Laplace.laplace.utils import FeatureExtractor, fit_diagonal_swag_var
 
 
 __all__ = ['SubnetMask', 'RandomSubnetMask', 'LargestMagnitudeSubnetMask',

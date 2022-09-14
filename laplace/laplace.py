@@ -1,5 +1,7 @@
-from laplace.baselaplace import ParametricLaplace
-from laplace import *
+import sys
+sys.path.append('/home/amand/')
+from Laplace.laplace.baselaplace import ParametricLaplace
+from Laplace.laplace import *
 
 
 def Laplace(model, likelihood, subset_of_weights='last_layer', hessian_structure='kron',

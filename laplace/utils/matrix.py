@@ -3,8 +3,8 @@ import torch
 import numpy as np
 from typing import Union
 import sys
-sys.path.append('/home/amand/')
-from Laplace.laplace.utils import _is_valid_scalar, symeig, kron, block_diag
+
+from laplace.utils import _is_valid_scalar, symeig, kron, block_diag
 
 
 __all__ = ['Kron', 'KronDecomposed']

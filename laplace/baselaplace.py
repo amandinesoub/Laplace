@@ -4,11 +4,9 @@ import torch
 from torch.nn.utils import parameters_to_vector, vector_to_parameters
 from torch.distributions import MultivariateNormal, Dirichlet, Normal
 
-import sys
-sys.path.append('/home/amand/')
-from Laplace.laplace.utils import (parameters_per_layer, invsqrt_precision, 
+from laplace.utils import (parameters_per_layer, invsqrt_precision, 
                            get_nll, validate, Kron, normal_samples)
-from Laplace.laplace.curvature import AsdlGGN, BackPackGGN, AsdlHessian
+from laplace.curvature import AsdlGGN, BackPackGGN, AsdlHessian
 
 
 __all__ = ['BaseLaplace', 'ParametricLaplace',

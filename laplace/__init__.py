@@ -7,9 +7,7 @@
 REGRESSION = 'regression'
 CLASSIFICATION = 'classification'
 
-import sys
-sys.path.append('/home/amand')
-from Laplace.laplace import laplace
+
 from laplace.baselaplace import BaseLaplace, ParametricLaplace, FullLaplace, KronLaplace, DiagLaplace, LowRankLaplace
 from laplace.lllaplace import LLLaplace, FullLLLaplace, KronLLLaplace, DiagLLLaplace
 from laplace.subnetlaplace import SubnetLaplace, FullSubnetLaplace, DiagSubnetLaplace

@@ -246,6 +246,8 @@ def normal_samples(mean, var, n_samples, generator=None):
     elif mean.shape == var.shape[:2] and var.shape[-1] == mean.shape[1]:
         # full covariance
         scale = torch.linalg.cholesky(var)
+        randn_samples = randn_samples.cpu()             #MODIFSAMANDINE
+        mean = mean.cpu()                               #MODIFSAMANDINE
         scaled_samples = torch.matmul(scale, randn_samples.unsqueeze(0))  # expand batch dim
         return (mean.unsqueeze(-1) + scaled_samples).permute((2, 0, 1))
     else:

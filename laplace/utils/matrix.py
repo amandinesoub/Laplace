@@ -378,7 +378,10 @@ class KronDecomposed:
             if len(ls) == 1:
                 Q, l, p = Qs[0], ls[0], len(ls[0])
                 ldelta_exp = torch.pow(l + delta, exponent).reshape(-1, 1)
-                W_p = W[:, cur_p:cur_p+p].T
+                W_p = W[:, cur_p:cur_p+p].T                 
+                Q = Q.cpu()                         #MODIFSAMANDINE
+                ldelta_exp = ldelta_exp.cpu()       #MODIFSAMANDINE
+                W_p = W_p.cpu()                     #MODIFSAMANDINE
                 SW.append((Q @ (ldelta_exp * (Q.T @ W_p))).T)
                 cur_p += p
             elif len(ls) == 2:
@@ -392,6 +395,10 @@ class KronDecomposed:
                     ldelta_exp = torch.pow(torch.ger(l1, l2) + delta, exponent).unsqueeze(0)
                 p_in, p_out = len(l1), len(l2)
                 W_p = W[:, cur_p:cur_p+p].reshape(B * K, p_in, p_out)
+                W_p = W_p.cpu()         #MODIFSAMANDINE
+                Q1 = Q1.cpu()           #MODIFSAMANDINE
+                Q2 = Q2.cpu()           #MODIFSAMANDINE
+                ldelta_exp = ldelta_exp.cpu()       #MODIFSAMANDINE
                 W_p = (Q1.T @ W_p @ Q2) * ldelta_exp
                 W_p = Q1 @ W_p @ Q2.T
                 SW.append(W_p.reshape(B * K, p_in * p_out))

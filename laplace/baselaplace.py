@@ -553,7 +553,7 @@ class ParametricLaplace(BaseLaplace):
             # classification
             if link_approx == 'mc':
                 return self.predictive_samples(x, pred_type='glm', n_samples=n_samples, 
-                                               diagonal_output=diagonal_output).mean(dim=0)         # notes amandine - use mean here ! 
+                                               diagonal_output=diagonal_output).mean(dim=0), f_mu,f_var         #MODIFSAMANDINE   # notes amandine - use mean here ! 
             elif link_approx == 'probit':               # notes amandine - gives only one tensor predictions
                 kappa = 1 / torch.sqrt(1. + np.pi / 8 * f_var.diagonal(dim1=1, dim2=2))
                 return torch.softmax(kappa * f_mu, dim=-1)

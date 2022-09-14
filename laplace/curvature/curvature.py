@@ -83,9 +83,13 @@ class CurvatureInterface:
         # calculate Jacobians using the feature vector 'phi'
         identity = torch.eye(output_size, device=x.device).unsqueeze(0).tile(bsize, 1, 1)
         # Jacobians are batch x output x params
-        Js = torch.einsum('kp,kij->kijp', phi, identity).reshape(bsize, output_size, -1)
-        if self.model.last_layer.bias is not None:
-            Js = torch.cat([Js, identity], dim=2)
+        # torch.cuda.empty_cache()
+        with torch.no_grad() :              # modifs amandine to avoid pb with gpu memory
+            Js = torch.einsum('kp,kij->kijp', phi, identity).reshape(bsize, output_size, -1)
+            if self.model.last_layer.bias is not None:
+                Js = Js.cpu()                   # modifs amandine to avoid pb gpu memory
+                identity = identity.cpu()       # modifs amandine to avoid pb gpu memory
+                Js = torch.cat([Js, identity], dim=2)
 
         return Js, f.detach()
 

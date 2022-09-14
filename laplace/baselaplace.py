@@ -546,7 +546,7 @@ class ParametricLaplace(BaseLaplace):
                 raise ValueError('Invalid random generator (check type and device).')
 
         if pred_type == 'glm':
-            f_mu, f_var = self._glm_predictive_distribution(x)
+            f_mu, f_var = self._glm_predictive_distribution(x)              # distribution according to network input - obtain mean and var distribution
             # regression
             if self.likelihood == 'regression':
                 return f_mu, f_var
@@ -554,7 +554,7 @@ class ParametricLaplace(BaseLaplace):
             if link_approx == 'mc':
                 return self.predictive_samples(x, pred_type='glm', n_samples=n_samples, 
                                                diagonal_output=diagonal_output).mean(dim=0)
-            elif link_approx == 'probit':
+            elif link_approx == 'probit':               # notes amandine - gives only one tensor predictions
                 kappa = 1 / torch.sqrt(1. + np.pi / 8 * f_var.diagonal(dim1=1, dim2=2))
                 return torch.softmax(kappa * f_mu, dim=-1)
             elif 'bridge' in link_approx:
